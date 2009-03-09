@@ -1,0 +1,24 @@
+<h1>Listing representatives</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Party</th>
+    <th>Sc url</th>
+  </tr>
+
+<% for representative in @representatives %>
+  <tr>
+    <td><%=h representative.name %></td>
+    <td><%=h representative.party %></td>
+    <td><%=h representative.sc_url %></td>
+    <td><%= link_to 'Show', representative %></td>
+    <td><%= link_to 'Edit', edit_representative_path(representative) %></td>
+    <td><%= link_to 'Destroy', representative, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New representative', new_representative_path %>

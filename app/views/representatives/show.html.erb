@@ -1,0 +1,18 @@
+<p>
+  <b>Name:</b>
+  <%=h @representative.name %>
+</p>
+
+<p>
+  <b>Party:</b>
+  <%=h @representative.party %>
+</p>
+
+<p>
+  <b>Sc url:</b>
+  <%=h @representative.sc_url %>
+</p>
+
+
+<%= link_to 'Edit', edit_representative_path(@representative) %> |
+<%= link_to 'Back', representatives_path %>

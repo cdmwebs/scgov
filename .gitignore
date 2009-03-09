@@ -1,0 +1,14 @@
+db/*.sqlite3
+db/sphinx/*
+config/database.yml
+config/ferret_server.yml
+index/*
+lib/orders/*
+log/*.log
+log/*.pid
+tmp/**/*
+tmp/tags
+doc/app
+doc/api
+*.swp
+.DS_Store

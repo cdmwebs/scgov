@@ -1,0 +1,23 @@
+<h1>New representative</h1>
+
+<% form_for(@representative) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.label :party %><br />
+    <%= f.text_field :party %>
+  </p>
+  <p>
+    <%= f.label :sc_url %><br />
+    <%= f.text_field :sc_url %>
+  </p>
+  <p>
+    <%= f.submit "Create" %>
+  </p>
+<% end %>
+
+<%= link_to 'Back', representatives_path %>

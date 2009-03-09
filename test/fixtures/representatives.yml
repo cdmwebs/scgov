@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  name: MyString
+  party: MyString
+  sc_url: MyString
+
+two:
+  name: MyString
+  party: MyString
+  sc_url: MyString
