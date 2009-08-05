@@ -1,9 +1,28 @@
-namespace :db do 
-  require 'hpricot'
-  require 'scrubyt'
+namespace :scrape do 
+  require 'scrapi'
    
   desc "Import representative info from www.scstatehouse.gov"
-  task :import_reps => :environment do
+  task :reps => :environment do
+    scraper = Scraper.define do
+      array :reps
+      process "div.sansSerifNormal", :reps => Scraper.define {
+        process "a.contentlink", :name => :text, :url => "@href", :party => nil
+        result :name, :url, :party
+      }
+      result :reps
+    end
+
+    uri = URI.parse("http://localhost/~chris/scgov/public/housemembers.html")
+    scraper.scrape(uri).each do |rep|
+      rep.party = rep.name[/\[(.+?)\]/]
+      rep.name = rep.name
+      puts rep.to_yaml
+      puts
+    end
+  end
+
+
+  task :old_way do
     doc = Hpricot(open("http://www.scstatehouse.gov/html-pages/housemembers.html"))
     
     # /html/body/table/tbody/tr[2]/td/div/table/tbody/tr/td[2]/div/div/pre/div
@@ -24,6 +43,26 @@ namespace :db do
 
       Representative.create(:name => name, :party => party, :sc_url => link)
                             #:district => District.find(district))
+    end
+  end
+  
+  task :tester do
+    scraper = Scraper.define do
+      array :items
+      process "div.item", :items => Scraper.define {
+        process "a.prodLink", :title => :text, :link => "@href"
+        process "div.priceAvail>div>div.PriceCompare>div.BodyS", :price => :text
+        result :price, :title, :link
+      }
+      result :items
+    end
+
+    uri = URI.parse("http://www.walmart.com/search/search-ng.do?search_constraint=0&ic=48_0&search_query=lost+third+season&Find.x=0&Find.y=0&Find=Find")
+    scraper.scrape(uri).each do |product|
+      puts product.title
+      puts product.price
+      puts product.link
+      puts
     end
   end
   
